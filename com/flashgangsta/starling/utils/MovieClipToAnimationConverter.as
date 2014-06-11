@@ -11,13 +11,13 @@ package com.flashgangsta.starling.utils {
 	 * @author Sergey Krivtsov (flashgangsta@gmail.com)
 	 */
 	
-	public class StarlingMovieClipConverter {
+	public class MovieClipToAnimationConverter {
 		
 		/**
 		 * 
 		 */
 		
-		public function StarlingMovieClipConverter() {
+		public function MovieClipToAnimationConverter() {
 			
 		}
 		
