@@ -1,16 +1,16 @@
 package com.flashgangsta.display {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import flash.display.BitmapDataChannel;
 	import flash.display.PixelSnapping;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	
 	/**
 	 * ...
 	 * @author Sergey Krivtsov (flashgangsta@gmail.com)
-	 * @version 0.05 (27.01.2014)
+	 * @version 0.06 (18.07.2014)
 	 */
 	
 	public class BitmapMovieClip extends Sprite {
@@ -20,6 +20,8 @@ package com.flashgangsta.display {
 		private var _currentFrame:int = 1;
 		private var _isPlayed:Boolean = false;
 		private var framesList:Vector.<BitmapMovieClipFrame>;
+		private var framesCallbacks:Dictionary = new Dictionary();
+		private var _smoothing:Boolean = false;
 		
 		
 		/**
@@ -126,11 +128,11 @@ package com.flashgangsta.display {
 		 */
 		
 		public function get smoothing():Boolean {
-			return bitmap.smoothing;
+			return _smoothing;
 		}
 		
 		public function set smoothing(value:Boolean):void {
-			bitmap.smoothing = value;
+			bitmap.smoothing = _smoothing = value;
 		}
 		
 		/**
@@ -139,8 +141,10 @@ package com.flashgangsta.display {
 		
 		public function dispose():void {
 			stop();
+			for (var i:int = 0; i < framesList.length; i++) {
+				framesList[i].bitmapData.dispose();
+			}
 			framesList = null;
-			bitmap.bitmapData.dispose();
 			bitmap.bitmapData = null;
 			bitmap = null;
 		}
@@ -196,6 +200,22 @@ package com.flashgangsta.display {
 		/**
 		 * 
 		 * @param	frame
+		 * @param	callback
+		 */
+		
+		public function addFrameSctipt(frame:int, callback:Function):void {
+			frame = getValidFrameValue(frame + 1);
+			
+			if (callback === null) {
+				delete framesCallbacks[frame];
+			} else {
+				framesCallbacks[frame] = callback;
+			}
+		}
+		
+		/**
+		 * 
+		 * @param	frame
 		 */
 		
 		private function setFrame(frame:int):void {
@@ -214,9 +234,18 @@ package com.flashgangsta.display {
 		 */
 		
 		private function onEnterFrame(event:Event = null):void {
-			_currentFrame = ++_currentFrame % totalFrames;
+			_currentFrame = getValidFrameValue(++_currentFrame);
 			setFrame(_currentFrame);
 			showFrame();
+		}
+		
+		/**
+		 * 
+		 * @param	currentFrame
+		 */
+		
+		private function getValidFrameValue(currentFrame:int):int {
+			return currentFrame % totalFrames;
 		}
 		
 		/**
@@ -229,6 +258,11 @@ package com.flashgangsta.display {
 			bitmap.bitmapData = frame.bitmapData;
 			bitmap.x = frame.x;
 			bitmap.y = frame.y;
+			bitmap.smoothing = _smoothing;
+			if (framesCallbacks[frameIndex]) {
+				var callback:Function = framesCallbacks[frameIndex];
+				callback();
+			}
 		}
 		
 		/**
