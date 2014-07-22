@@ -3,7 +3,7 @@
  * Manager for quick and easy to scale and align objects.
  *
  * @author		Sergei Krivtsov
- * @version		1.00.15		17/02/2014
+ * @version		1.00.16		22/07/2014
  *
  */
 
@@ -26,7 +26,7 @@ package com.flashgangsta.managers {
 		 * @param	maxHeight
 		 */
 		
-		public static function setScale(target:DisplayObject, maxWidth:int, maxHeight:int):void {
+		public static function setScale(target:Object, maxWidth:int, maxHeight:int):void {
 			var targetRect:Rectangle = target.getBounds(target);
 			target.scaleX = target.scaleY = Math.min(maxWidth / targetRect.width, maxHeight / targetRect.height);
 			roundObjectSides(target, Math.round);
@@ -63,7 +63,7 @@ package com.flashgangsta.managers {
 		 * @param	area зона которую он должен заполнить
 		 */
 		
-		public static function setScaleFillArea(target:DisplayObject, area:Rectangle):void {
+		public static function setScaleFillArea(target:Object, area:Rectangle):void {
 			var targetRect:Rectangle = target.getBounds(target);
 			target.scaleX = target.scaleY = Math.max(area.width / targetRect.width, area.height / targetRect.height);
 			roundObjectSides(target, Math.ceil);
@@ -75,7 +75,7 @@ package com.flashgangsta.managers {
 		 * @param	area
 		 */
 		
-		public static function alignToCenter(target:DisplayObject, area:Rectangle):void {
+		public static function alignToCenter(target:Object, area:Rectangle):void {
 			var targetBounds:Rectangle = target.getBounds(target);
 			target.x = Math.round(area.x + ((area.width - target.width) / 2) - targetBounds.x);
 			target.y = Math.round(area.y + ((area.height - target.height) / 2) - targetBounds.y);
@@ -125,7 +125,7 @@ package com.flashgangsta.managers {
 		 * Math.round
 		 */
 		
-		public static function roundObjectSides(target:DisplayObject, method:Function):void {
+		public static function roundObjectSides(target:Object, method:Function):void {
 			target.width = method(target.width);
 			target.height = method(target.height);
 		}
