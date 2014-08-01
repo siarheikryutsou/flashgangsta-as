@@ -2,11 +2,11 @@ package com.flashgangsta.utils {
 	/**
 	 * ...
 	 * @author Sergey Krivtsov (flashgangsta@gmail.com)
-	 * @version 1.00
+	 * @version 0.02 31/07/2014
 	 */
-	public class StringUtils {
+	public class StringUtil {
 		
-		public function StringUtils() {
+		public function StringUtil() {
 			
 		}
 		
@@ -23,6 +23,10 @@ package com.flashgangsta.utils {
 				result += symbols.charAt( Math.floor( Math.random() * symbols.length ) );
 			}
 			return result;
+		}
+		
+		static public function getStringWithCapitalLetter(string:String):String {
+			return string.substr(0, 1).toUpperCase() + string.substr(1).toLocaleLowerCase();
 		}
 		
 	}
