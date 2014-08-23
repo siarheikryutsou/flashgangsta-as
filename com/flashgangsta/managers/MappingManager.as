@@ -3,7 +3,7 @@
  * Manager for quick and easy to scale and align objects.
  *
  * @author		Sergei Krivtsov
- * @version		1.00.16		22/07/2014
+ * @version		1.00.17		23/08/2014
  *
  */
 
@@ -29,7 +29,7 @@ package com.flashgangsta.managers {
 		public static function setScale(target:Object, maxWidth:int, maxHeight:int):void {
 			var targetRect:Rectangle = target.getBounds(target);
 			target.scaleX = target.scaleY = Math.min(maxWidth / targetRect.width, maxHeight / targetRect.height);
-			roundObjectSides(target, Math.round);
+			roundSides(target);
 		}
 		
 		/**
@@ -42,7 +42,7 @@ package com.flashgangsta.managers {
 		public static function setScaleOnlyReduce(target:DisplayObject, maxWidth:int, maxHeight:int):void {
 			var targetRect:Rectangle = target.getBounds(target);
 			target.scaleX = target.scaleY = Math.min(maxWidth / targetRect.width, maxHeight / targetRect.height, 1);
-			roundObjectSides(target, Math.floor);
+			roundSides(target, Math.floor);
 		}
 		
 		/**
@@ -54,7 +54,7 @@ package com.flashgangsta.managers {
 		static public function setScaleByWidthOnlyReduce(target:DisplayObject, width:int):void {
 			var targetRect:Rectangle = target.getBounds(target);
 			target.scaleX = target.scaleY = Math.min(width / targetRect.width, 1);
-			roundObjectSides(target, Math.floor);
+			roundSides(target, Math.floor);
 		}
 		
 		/**
@@ -66,7 +66,7 @@ package com.flashgangsta.managers {
 		public static function setScaleFillArea(target:Object, area:Rectangle):void {
 			var targetRect:Rectangle = target.getBounds(target);
 			target.scaleX = target.scaleY = Math.max(area.width / targetRect.width, area.height / targetRect.height);
-			roundObjectSides(target, Math.ceil);
+			roundSides(target, Math.ceil);
 		}
 		
 		/**
@@ -75,10 +75,14 @@ package com.flashgangsta.managers {
 		 * @param	area
 		 */
 		
-		public static function alignToCenter(target:Object, area:Rectangle):void {
+		public static function alignToCenter(target:Object, area:Rectangle, neededRoundPosition:Boolean = true):void {
 			var targetBounds:Rectangle = target.getBounds(target);
-			target.x = Math.round(area.x + ((area.width - target.width) / 2) - targetBounds.x);
-			target.y = Math.round(area.y + ((area.height - target.height) / 2) - targetBounds.y);
+			target.x = area.x + ((area.width - target.width) / 2) - targetBounds.x;
+			target.y = area.y + ((area.height - target.height) / 2) - targetBounds.y;
+			
+			if (neededRoundPosition) {
+				roundPositionPoint(target);
+			}
 		}
 		
 		/**
@@ -125,9 +129,26 @@ package com.flashgangsta.managers {
 		 * Math.round
 		 */
 		
-		public static function roundObjectSides(target:Object, method:Function):void {
+		public static function roundSides(target:Object, method:Function = null):void {
+			if (method === null) {
+				method = Math.round;
+			}
 			target.width = method(target.width);
 			target.height = method(target.height);
+		}
+		
+		/**
+		 * 
+		 * @param	target
+		 * @param	methond default value is Math.round
+		 */
+		
+		static public function roundPositionPoint(target:Object, methond:Function = null):void {
+			if (methond === null) {
+				methond = Math.round;
+			}
+			target.x = methond(target.x);
+			target.y = methond(target.y);
 		}
 		
 		/**
