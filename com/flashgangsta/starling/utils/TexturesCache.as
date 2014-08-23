@@ -1,5 +1,4 @@
-package com.flashgangsta.starling.utils {
-	import com.flashgangsta.display.BitmapMovieClip;
+﻿package com.flashgangsta.starling.utils {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
@@ -11,7 +10,7 @@ package com.flashgangsta.starling.utils {
 	/**
 	 * ...
 	 * @author Sergey Krivtsov (flashgangsta@gmail.com)
-	 * @version 1.01 16/06/2014
+	 * @version 1.02 22/08/2014
 	 */
 	
 	public class TexturesCache {

@@ -1,14 +1,17 @@
 package com.flashgangsta.starling.display {
 	import com.flashgangsta.starling.display.AnimationFrameModel;
+	import com.flashgangsta.utils.setParamForObjectsList;
 	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.EnterFrameEvent;
 	import starling.textures.Texture;
+	import starling.utils.Color;
 	
 	/**
 	 * ...
 	 * @author Sergey Krivtsov (flashgangsta@gmail.com)
+	 * @version 0.03 08/08/2014
 	 */
 	public class Animation extends Sprite {
 		private var frameRate:int;
@@ -18,6 +21,7 @@ package com.flashgangsta.starling.display {
 		private var isPlayed:Boolean = false;
 		private var enterFrameHandlerCounter:int = 0;
 		private var frameRateDifference:Number;
+		private var _color:uint;
 		
 		/**
 		 * 
@@ -93,6 +97,7 @@ package com.flashgangsta.starling.display {
 				removeEventListener(EnterFrameEvent.ENTER_FRAME, enterFrameHandler)
 			}
 			
+			enterFrameHandlerCounter = 0;
 			addEventListener(EnterFrameEvent.ENTER_FRAME, enterFrameHandler);
 		}
 		
@@ -171,12 +176,31 @@ package com.flashgangsta.starling.display {
 			super.dispose();
 		}
 		
+		override public function get touchable():Boolean {
+			return super.touchable;
+		}
+		
+		override public function set touchable(value:Boolean):void {
+			super.touchable = value;
+			setParamForObjectsList(_imagesList, "touchable", value);
+		}
+		
+		public function get color():uint {
+			return _color;
+		}
+		
+		public function set color(value:uint):void {
+			_color = value;
+			setParamForObjectsList(_imagesList, "color", value);
+		}
+		
 		/**
 		 * 
 		 * @param	frame
 		 */
 		
 		private function showFrame(frame:int):void {
+			enterFrameHandlerCounter = 0;
 			if (frame < 1) {
 				frame = 1;
 			} else if (frame > totalFrames) {
@@ -196,8 +220,6 @@ package com.flashgangsta.starling.display {
 			if (++enterFrameHandlerCounter < frameRateDifference) {
 				return;
 			}
-			
-			enterFrameHandlerCounter = 0;
 			
 			showFrame(currentFrame === totalFrames ? 1 : currentFrame + 1);
 		}

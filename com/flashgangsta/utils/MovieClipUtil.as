@@ -1,4 +1,4 @@
-package com.flashgangsta.utils {
+﻿package com.flashgangsta.utils {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -6,7 +6,7 @@ package com.flashgangsta.utils {
 	/**
 	 * ...
 	 * @author Sergey Krivtsov (flashgangsta@gmail.com)
-	 * @version 0.05 27.01.2014
+	 * @version 0.06 05/08/2014
 	 */
 	
 	public class MovieClipUtil {
@@ -54,7 +54,7 @@ package com.flashgangsta.utils {
 		 * @param	playFromFrame if parameter "playFromCurrentFrame" is false, all movie clips will be started from frame equal this parameter value
 		 */
 		
-		static public function playAllMovieClips(target:DisplayObjectContainer, playFromCurrentFrame:Boolean = true, playFromFrame:int = 0):void {
+		static public function playAllMovieClips(target:DisplayObjectContainer, playFromCurrentFrame:Boolean = true, playFromFrame:int = 1):void {
 			var numChildren:int = target.numChildren;
 			var child:DisplayObject;
 			var movieClip:MovieClip;

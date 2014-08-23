@@ -1,14 +1,14 @@
-package com.flashgangsta.utils {
+﻿package com.flashgangsta.utils {
 	
 	/**
 	 * ...
 	 * @author Sergey Krivtsov
-	 * @version 1.00
+	 * @version 1.01 22/08/2014
 	 */
 	
-	public class NumUtils {
+	public class NumUtil {
 		
-		public function NumUtils() {
+		public function NumUtil() {
 			
 		}
 		
