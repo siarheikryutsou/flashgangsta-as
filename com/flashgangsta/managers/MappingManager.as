@@ -3,7 +3,7 @@
  * Manager for quick and easy to scale and align objects.
  *
  * @author		Sergei Krivtsov
- * @version		1.00.17		23/08/2014
+ * @version		1.00.18		25/08/2014
  *
  */
 
@@ -82,6 +82,38 @@ package com.flashgangsta.managers {
 			
 			if (neededRoundPosition) {
 				roundPositionPoint(target);
+			}
+		}
+		
+		/**
+		 * 
+		 * @param	target
+		 * @param	area
+		 * @param	neederRoundPosition
+		 */
+		
+		static public function alignCenterY(target:Object, area:Rectangle, neededRoundPosition:Boolean = true):void {
+			var targetBounds:Rectangle = target.getBounds(target);
+			target.y = area.y + ((area.height - target.height) / 2) - targetBounds.y;
+			
+			if (neededRoundPosition) {
+				target.y = Math.round(target.y);
+			}
+		}
+		
+		/**
+		 * 
+		 * @param	target
+		 * @param	area
+		 * @param	neederRoundPosition
+		 */
+		
+		static public function alignCenterX(target:Object, area:Rectangle, neededRoundPosition:Boolean = true):void {
+			var targetBounds:Rectangle = target.getBounds(target);
+			target.x = area.x + ((area.width - target.width) / 2) - targetBounds.x;
+			
+			if (neededRoundPosition) {
+				target.x = Math.round(target.x);
 			}
 		}
 		
