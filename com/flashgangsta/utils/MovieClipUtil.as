@@ -6,7 +6,7 @@
 	/**
 	 * ...
 	 * @author Sergey Krivtsov (flashgangsta@gmail.com)
-	 * @version 0.06 05/08/2014
+	 * @version 0.08 22/10/2014
 	 */
 	
 	public class MovieClipUtil {
@@ -30,6 +30,7 @@
 			var numChildren:int = target.numChildren;
 			var child:DisplayObject;
 			var movieClip:MovieClip;
+			
 			for (var i:int = 0; i < numChildren; i++) {
 				child = target.getChildAt(i);
 				if (child is MovieClip) {
@@ -45,6 +46,11 @@
 					MovieClipUtil.stopAllMovieClips(child as DisplayObjectContainer, stopOnCurrenFrame, stopOnFrame);
 				}
 			}
+			
+			if (target is MovieClip) {
+				movieClip = target as MovieClip;
+				movieClip.gotoAndStop(stopOnFrame ? stopOnFrame : movieClip.currentFrame);
+			}
 		}
 		
 		/**
@@ -54,26 +60,24 @@
 		 * @param	playFromFrame if parameter "playFromCurrentFrame" is false, all movie clips will be started from frame equal this parameter value
 		 */
 		
-		static public function playAllMovieClips(target:DisplayObjectContainer, playFromCurrentFrame:Boolean = true, playFromFrame:int = 1):void {
+		static public function playAllMovieClips(target:DisplayObjectContainer, playFromCurrentFrame:Boolean = true, playFromFrame:int = 0):void {
 			var numChildren:int = target.numChildren;
 			var child:DisplayObject;
 			var movieClip:MovieClip;
 			
 			for (var i:int = 0; i < numChildren; i++) {
 				child = target.getChildAt(i);
-				if (child is MovieClip) {
-					movieClip = child as MovieClip;
-					if (playFromCurrentFrame) {
-						movieClip.play();
-					} else {
-						movieClip.gotoAndPlay(playFromFrame);
-					}
+				if (child is DisplayObjectContainer) {
+					MovieClipUtil.playAllMovieClips(child as DisplayObjectContainer, playFromCurrentFrame, playFromFrame);
 				}
+				
 			}
 			
-			if (child is DisplayObjectContainer) {
-				MovieClipUtil.playAllMovieClips(child as DisplayObjectContainer, playFromCurrentFrame, playFromFrame);
+			if (target is MovieClip) {
+				movieClip = target as MovieClip;
+				movieClip.gotoAndPlay(playFromCurrentFrame ? playFromCurrentFrame : movieClip.currentFrame);
 			}
+			
 		}
 		
 	}

@@ -4,6 +4,7 @@ package com.flashgangsta.starling.display {
 	/**
 	 * ...
 	 * @author Sergey Krivtsov (flashgangsta@gmail.com)
+	 * @version 0.01 05/09/2014
 	 */
 	public class AnimationFrameModel {
 		private var _bitmapData:BitmapData;
