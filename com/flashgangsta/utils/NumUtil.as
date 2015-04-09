@@ -9,7 +9,7 @@
 	public class NumUtil {
 		
 		public function NumUtil() {
-			
+		
 		}
 		
 		/**
@@ -18,7 +18,7 @@
 		 * @return
 		 */
 		
-		public static function toTwoDigit( value:int ):String {
+		public static function toTwoDigit(value:int):String {
 			return value > 9 ? value.toString() : "0" + value;
 		}
 	}

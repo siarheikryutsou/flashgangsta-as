@@ -2,7 +2,7 @@ package com.flashgangsta.utils {
 	/**
 	 * ...
 	 * @author Sergey Krivtsov (flashgangsta@gmail.com)
-	 * @version 0.01 29/07/2013
+	 * @version 0.02 13/02/2015
 	 */
 	public class MathUtil {
 		
@@ -40,6 +40,19 @@ package com.flashgangsta.utils {
 			}
 			
 			return result;
+		}
+		
+		/**
+		 * 
+		 */
+		
+		static public const getRandomInt(min:int = 0, max:int = 0):void {
+			var result:int;
+			if (min && max) {
+				result = min + int((max - min + 1) * Math.random());
+			} else {
+				result = Math.round(Math.random());
+			}
 		}
 		
 	}
